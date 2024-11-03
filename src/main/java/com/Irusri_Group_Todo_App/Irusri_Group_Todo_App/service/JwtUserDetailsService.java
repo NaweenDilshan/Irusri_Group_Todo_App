@@ -31,10 +31,10 @@ public class JwtUserDetailsService implements UserDetailsService {
 		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
 	}
 
-	// Override loadUserByUsername to comply with UserDetailsService
+	// Reuse the email loading logic
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-		return loadUserByEmail(email); // Reuse the email loading logic
+		return loadUserByEmail(email);
 	}
 
 

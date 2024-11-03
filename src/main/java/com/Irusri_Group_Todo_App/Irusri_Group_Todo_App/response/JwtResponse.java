@@ -1,4 +1,4 @@
-package com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.model;
+package com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.response;
 
 import java.io.Serializable;
 

@@ -1,7 +1,8 @@
 package com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.controller;
 
-import com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.model.JwtRequest;
-import com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.model.JwtResponse;
+import com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.request.JwtRequest;
+import com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.response.CommonResponse;
+import com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.response.JwtResponse;
 import com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.model.User;
 import com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.service.JwtUserDetailsService;
 import com.Irusri_Group_Todo_App.Irusri_Group_Todo_App.config.JwtTokenUtil;
@@ -57,9 +58,18 @@ public class JwtAuthenticationController {
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public ResponseEntity<?> saveUser(@RequestBody User user) throws Exception {
-		return ResponseEntity.ok(userDetailsService.save(user));
+	public ResponseEntity<CommonResponse<Integer>> saveUser(@RequestBody User user) throws Exception {
+		int result = userDetailsService.save(user);
+		String message = (result > 0) ? "User registered successfully." : "User registration failed.";
+
+		return ResponseEntity.ok(CommonResponse.<Integer>builder()
+				.isSuccess(result > 0)
+				.dataBundle(result)
+				.message(message)
+				.build());
 	}
+
+
 
 
 }
